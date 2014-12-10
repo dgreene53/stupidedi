@@ -228,9 +228,9 @@ module Stupidedi
           if count.zero? and child.required?
             raise Exceptions::ParseError,
               "required #{type} #{child.id} is missing from #{name}"
-          elsif bound < count
-            raise Exceptions::ParseError,
-              "#{type} #{child.id} occurs too many times in #{name}"
+          # elsif bound < count
+          #   raise Exceptions::ParseError,
+          #     "#{type} #{child.id} occurs too many times in #{name}"
           end
         end
       end
