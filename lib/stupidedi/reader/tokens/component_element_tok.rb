@@ -22,12 +22,12 @@ module Stupidedi
         q.pp(:component.cons(@value.cons))
       end
 
-      def blank?
-        @value.blank?
+      def edi_blank?
+        @value.edi_blank?
       end
 
-      def present?
-        not blank?
+      def edi_present?
+        not edi_blank?
       end
 
       def simple?

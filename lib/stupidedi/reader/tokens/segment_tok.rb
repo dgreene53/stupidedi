@@ -25,12 +25,12 @@ module Stupidedi
         q.pp(:segment.cons(@id.cons(@element_toks)))
       end
 
-      def blank?
-        @element_toks.all(&:blank?)
+      def edi_blank?
+        @element_toks.all(&:edi_blank?)
       end
 
-      def present?
-        not blank?
+      def edi_present?
+        not edi_blank?
       end
     end
 

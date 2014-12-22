@@ -91,8 +91,8 @@ module Stupidedi
         end
       end
 
-      # Override {Enumerable#blank?} since we're not really {Enumerable}
-      def blank?
+      # Override {Enumerable#edi_blank?} since we're not really {Enumerable}
+      def edi_blank?
         false
       end
 

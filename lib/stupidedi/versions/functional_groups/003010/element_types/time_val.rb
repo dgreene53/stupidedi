@@ -276,7 +276,7 @@ module Stupidedi
 
             # @return [TimeVal]
             def value(object, usage, position)
-              if object.blank?
+              if object.edi_blank?
                 self::Empty.new(usage, position)
 
               elsif object.is_a?(String) or object.is_a?(StringVal)
@@ -284,8 +284,8 @@ module Stupidedi
                   unless object =~ /^\d+$/
 
                 hour   = object.to_s.slice(0, 2).to_i
-                minute = object.to_s.slice(2, 2).try{|mm| mm.to_i unless mm.blank? }
-                second = object.to_s.slice(4, 2).try{|ss| ss.to_d unless ss.blank? }
+                minute = object.to_s.slice(2, 2).try{|mm| mm.to_i unless mm.edi_blank? }
+                second = object.to_s.slice(4, 2).try{|ss| ss.to_d unless ss.edi_blank? }
 
                 if decimal = object.to_s.slice(6..-1)
                   second += "0.#{decimal}".to_d

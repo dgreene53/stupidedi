@@ -587,7 +587,7 @@ module Stupidedi
                     op.push.nil?        ||
                     op.segment_use.nil? ||
                     1 >= zipper.node.instructions.instructions.count do |x|
-                      x.push.present? and
+                      x.push.edi_present? and
                        (# This is hairy, but we know the instruction is pushing some
                         # number of nested subtrees. We know from each AbstractState
                         # subclass that we both either push a single subtree
@@ -638,12 +638,12 @@ module Stupidedi
 
         filter_tok.element_toks.zip(segment_val.children) do |f_tok, e_val|
           if f_tok.simple?
-            return true unless f_tok.blank? or e_val == f_tok.value
+            return true unless f_tok.edi_blank? or e_val == f_tok.value
           elsif f_tok.composite?
             f_tok.component_toks.zip(e_val.children) do |c_tok, c_val|
-              return true unless c_tok.blank? or c_val == c_tok.value
+              return true unless c_tok.edi_blank? or c_val == c_tok.value
             end
-          elsif f_tok.present?
+          elsif f_tok.edi_present?
             raise Exceptions::ParseError,
               "only simple and composite elements can be filtered"
           end
@@ -660,13 +660,13 @@ module Stupidedi
         children = invalid_val.segment_tok.element_toks
         filter_tok.element_toks.zip(children) do |f_tok, e_tok|
           if f_tok.simple?
-            return true unless f_tok.blank? or f_tok.value == e_tok.value
+            return true unless f_tok.edi_blank? or f_tok.value == e_tok.value
           elsif f_tok.composite?
             children = e_tok.component_toks
             f_tok.component_toks.zip(children) do |f_com, e_com|
-              return true unless f_com.blank? or f_com.value == e_com.value
+              return true unless f_com.edi_blank? or f_com.value == e_com.value
             end
-          elsif f_tok.present?
+          elsif f_tok.edi_present?
             raise Exceptions::ParseError,
               "only simple and composite elements can be filtered"
           end

@@ -104,7 +104,7 @@ module Stupidedi
         # @return [Array<Instruction>]
         def matches(segment_tok, strict)
           invalid = true  # Were all possibly distinguishing elements invalid?
-          present = false # Were any possibly distinguishing elements present?
+          present = false # Were any possibly distinguishing elements edi_present?
 
           @__basis ||= basis(shallowest(@instructions))
           @__basis.head.each do |(n, m), map|
@@ -146,7 +146,7 @@ module Stupidedi
               subset  = map.at(value)
               present = true
 
-              unless subset.blank?
+              unless subset.edi_blank?
                 invalid = false
                 space  &= subset
 
@@ -383,14 +383,14 @@ module Stupidedi
           element_tok = element_toks.at(m)
           element_tok = element_tok.element_toks.at(0) if element_tok.try(:repeated?)
 
-          if element_tok.blank?
+          if element_tok.edi_blank?
             nil
           elsif n.nil?
             element_tok.value
           else
             element_tok = element_tok.component_toks.at(n)
 
-            if element_tok.blank?
+            if element_tok.edi_blank?
               nil
             else
               element_tok.value

@@ -17,7 +17,7 @@ module Stupidedi
         common  = @separators.characters & @zipper.node.characters
         message = common.to_a.map(&:inspect).join(", ")
 
-        if common.present?
+        if common.edi_present?
           raise Exceptions::OutputError,
             "separators #{message} occur as data"
         end
@@ -39,10 +39,10 @@ module Stupidedi
             separators = value.separators#merge(@separators)
 
             raise Exceptions::OutputError,
-              "separators.segment cannot be blank" if separators.segment.blank?
+              "separators.segment cannot be blank" if separators.segment.edi_blank?
 
             raise Exceptions::OutputError,
-              "separators.element cannot be blank" if separators.element.blank?
+              "separators.element cannot be blank" if separators.element.edi_blank?
 
             unless separators == @separators
               # We've inherited some separators from the interchange,
@@ -54,7 +54,7 @@ module Stupidedi
               common  = separators.characters & @zipper.node.characters
               message = common.to_a.map(&:inspect).join(", ")
 
-              if common.present?
+              if common.edi_present?
                 raise Exceptions::OutputError,
                   "separator characters #{message} occur as data"
               end

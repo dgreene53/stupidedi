@@ -1,9 +1,9 @@
 v 1.2.2 - July 8, 2014
-  - Remove definition of module Enumerable::blank? and present?
-  - Add blank?, present? to Array class
+  - Remove definition of module Enumerable::edi_blank? and edi_present?
+  - Add edi_blank?, edi_present? to Array class
 
 v 1.2.1 - July 7, 2014
-  - Don't redefine 'blank?' for Enumerable, if an implementation already (rails support)
+  - Don't redefine 'edi_blank?' for Enumerable, if an implementation already (rails support)
 
 v 1.2.0 - July 7, 2014
   - Don't redefine try, if active_support provides an implementation already (better rails support)

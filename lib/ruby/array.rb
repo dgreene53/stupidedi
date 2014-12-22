@@ -1,10 +1,10 @@
 class Array
 
-  def blank?
+  def edi_blank?
     empty?
   end
 
-  def present?
+  def edi_present?
     not empty?
   end
 

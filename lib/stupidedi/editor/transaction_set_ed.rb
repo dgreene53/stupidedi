@@ -53,7 +53,7 @@ module Stupidedi
 
           # Transaction Set Identifier Code
           st.element(1).tap do |e|
-            if e.node.present? and e.node.valid?
+            if e.node.edi_present? and e.node.valid?
               unless e.node == envelope_def.id
                 acc.ik502(e, "R", "6", "is not an allowed value")
               end
@@ -63,7 +63,7 @@ module Stupidedi
           st.parent.tap do |gs|
             # Functional Identifier Code
             gs.element(1).tap do |e|
-              if e.node.present? and e.node.valid?
+              if e.node.edi_present? and e.node.valid?
                 unless e.node == envelope_def.functional_group
                   acc.ak905(e, "R", "1", "is not an allowed value")
                 end
@@ -115,7 +115,7 @@ module Stupidedi
             else
               acc.ik403(zipper, "R", "6", "is not a valid string")
             end
-          elsif zipper.node.blank?
+          elsif zipper.node.edi_blank?
             if zipper.node.usage.required?
               acc.ik403(zipper, "R", "1", "must be present")
             end
@@ -130,20 +130,20 @@ module Stupidedi
           end
 
         elsif zipper.node.composite?
-          if zipper.node.blank?
+          if zipper.node.edi_blank?
             if zipper.node.usage.required?
               acc.ik403(zipper, "R", "1", "must be present")
             end
           elsif zipper.node.usage.forbidden?
             acc.ik403(zipper, "R", "I10", "must not be present")
           else
-            if zipper.node.present?
+            if zipper.node.edi_present?
               zipper.children.each{|z| recurse(z, acc) }
 
               d = zipper.node.definition
               d.syntax_notes.each do |s|
                 zs = s.errors(zipper)
-                ex = s.reason(zipper) if zs.present?
+                ex = s.reason(zipper) if zs.edi_present?
                 zs.each{|c| acc.ik403(c, "R", "2", ex) }
               end
             end
@@ -161,7 +161,7 @@ module Stupidedi
             zipper.node.definition.tap do |d|
               d.syntax_notes.each do |s|
                 es = s.errors(zipper)
-                ex = s.reason(zipper) if es.present?
+                ex = s.reason(zipper) if es.edi_present?
                 es.each{|c| acc.ik403(c, "R", "2", ex) }
               end
             end
@@ -191,7 +191,7 @@ module Stupidedi
             repeat  = child.repeat_count
             matches = group.at(child)
 
-            if matches.blank? and child.required?
+            if matches.edi_blank? and child.required?
               if child.loop?
                 acc.ik304(last, "R", "I7", "missing #{child.id} loop")
               else
@@ -207,7 +207,7 @@ module Stupidedi
               end
             end
 
-            last = matches.last unless matches.blank?
+            last = matches.last unless matches.edi_blank?
           end
 
         elsif zipper.node.table?
@@ -232,7 +232,7 @@ module Stupidedi
             matches = group.at(child)
             repeat  = child.repeat_count
 
-            if matches.blank? and child.required?
+            if matches.edi_blank? and child.required?
               if child.loop?
                 acc.ik304(last, "R", "I7", "missing #{child.id} loop")
               else
@@ -248,7 +248,7 @@ module Stupidedi
               end
             end
 
-            last = matches.last unless matches.blank?
+            last = matches.last unless matches.edi_blank?
           end
 
         elsif zipper.node.transaction_set?

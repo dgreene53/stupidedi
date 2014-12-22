@@ -29,7 +29,7 @@ module Stupidedi
         # Functional Group Code
         edit(:GS01) do
           gs.element(1).tap do |e|
-            if e.node.blank?
+            if e.node.edi_blank?
               if e.node.usage.required?
                 acc.ak905(e, "R", "1", "must be present")
               end
@@ -47,7 +47,7 @@ module Stupidedi
         # Application Sender's Code
         edit(:GS02) do
           gs.element(2).tap do |e|
-            if e.node.blank?
+            if e.node.edi_blank?
               if e.node.usage.required?
                 acc.ak905(e, "R", "14", "must be present")
               end
@@ -62,7 +62,7 @@ module Stupidedi
         # Application Receiver's Code
         edit(:GS03) do
           gs.element(3).tap do |e|
-            if e.node.blank?
+            if e.node.edi_blank?
               acc.ak905(e, "R", "13", "must be present")
             elsif e.node.invalid? or not config.editor.an?(e.node)
               acc.ak905(e, "R", "13", "is not a valid string")
@@ -73,7 +73,7 @@ module Stupidedi
         # Date
         edit(:GS04) do
           gs.element(4).tap do |e|
-            if e.node.blank?
+            if e.node.edi_blank?
               acc.ta105(e, "R", "024", "must be present")
             elsif e.node.invalid?
               acc.ta105(e, "R", "024", "is not a valid date")
@@ -86,7 +86,7 @@ module Stupidedi
         # Time
         edit(:GS05) do
           gs.element(5).tap do |e|
-            if e.node.blank?
+            if e.node.edi_blank?
               acc.ta105(e, "R", "024", "must be present")
             elsif e.node.invalid?
               acc.ta105(e, "R", "024", "is not a valid time")
@@ -103,7 +103,7 @@ module Stupidedi
         # Group Control Number
         edit(:GS06) do
           gs.element(6).tap do |e|
-            if e.node.blank?
+            if e.node.edi_blank?
               acc.ak905(e, "R", "6", "must be present")
             elsif e.node.invalid?
               acc.ak905(e, "R", "6", "is not a valid string")
@@ -118,7 +118,7 @@ module Stupidedi
         # Responsible Agency Code
         edit(:GS07) do
           gs.element(7).tap do |e|
-            if e.node.blank?
+            if e.node.edi_blank?
               acc.ta105(e, "R", "024", "must be present")
             elsif e.node.invalid?
               acc.ta105(e, "R", "024", "is not a valid string")
@@ -131,7 +131,7 @@ module Stupidedi
         # Version/Release/Industry Identifier Code
         edit(:GS08) do
           gs.element(8).tap do |e|
-            if e.node.blank?
+            if e.node.edi_blank?
               acc.ak905(e, "R", "2", "must be present")
             end
           end
@@ -167,7 +167,7 @@ module Stupidedi
 
         edit(:ST02) do
           st02s.each do |number, es|
-            next if number.blank?
+            next if number.edi_blank?
             es.tail.each do |e|
               acc.ik502(e, "R", "23", "must be unique within functional group")
             end
@@ -227,7 +227,7 @@ module Stupidedi
         # Transaction Set Identifier Code
         edit(:ST01) do
           st.element(1).tap do |e|
-            if e.node.blank?
+            if e.node.edi_blank?
               if e.node.usage.required?
                 acc.ik502(e, "R", "6", "must be present")
               end
@@ -244,7 +244,7 @@ module Stupidedi
         # Transaction Set Control Number
         edit(:ST02) do
           st.element(2).tap do |e|
-            if e.node.blank?
+            if e.node.edi_blank?
               if e.node.usage.required?
                 acc.ik502(e, "R", "7", "must be present")
               elsif e.node.usage.forbidden?
@@ -311,7 +311,7 @@ module Stupidedi
         edit(:NM1) do
           # Organization/last name
           nm1.element(3).tap do |e|
-            if e.node.blank? and e.node.usage.optional?
+            if e.node.edi_blank? and e.node.usage.optional?
               acc.warn(e, "optional element is not present")
             end
           end
@@ -320,28 +320,28 @@ module Stupidedi
           if nm1.element(2).select{|e| e.node == "2" }.defined?
             # First name
             nm1.element(4).tap do |e|
-              if e.node.present? and e.node.usage.optional?
+              if e.node.edi_present? and e.node.usage.optional?
                 acc.stc01(e, "T", "A8", "505", "must not be present when NM102 is 2")
               end
             end
 
             # Middle name
             nm1.element(5).tap do |e|
-              if e.node.present? and e.node.usage.optional?
+              if e.node.edi_present? and e.node.usage.optional?
                 acc.stc01(e, "T", "A8", "514", "must not be present when NM102 is 2")
               end
             end
 
             # Prefix name
             nm1.element(6).tap do |e|
-              if e.node.present? and e.node.usage.optional?
+              if e.node.edi_present? and e.node.usage.optional?
                 acc.stc01(e, "T", "A8", "125", "must not be present when NM102 is 2")
               end
             end
 
             # Suffix name
             nm1.element(7).tap do |e|
-              if e.node.present? and e.node.usage.optional?
+              if e.node.edi_present? and e.node.usage.optional?
                 acc.stc01(e, "T", "A8", "125", "must not be present when NM102 is 2")
               end
             end
@@ -351,28 +351,28 @@ module Stupidedi
           if nm1.element(2).select{|e| e.node == "1" }.defined?
             # First name
             nm1.element(4).tap do |e|
-              if e.node.blank? and e.node.usage.optional?
+              if e.node.edi_blank? and e.node.usage.optional?
                 acc.warn(e, "optional element is not present")
               end
             end
 
             # Middle name
             nm1.element(5).tap do |e|
-              if e.node.blank? and e.node.usage.optional?
+              if e.node.edi_blank? and e.node.usage.optional?
                 acc.warn(e, "optional element is not present")
               end
             end
 
             # Prefix name
             nm1.element(6).tap do |e|
-              if e.node.blank? and e.node.usage.optional?
+              if e.node.edi_blank? and e.node.usage.optional?
                 acc.warn(e, "optional element is not present")
               end
             end
 
             # Suffix name
             nm1.element(7).tap do |e|
-              if e.node.blank? and e.node.usage.optional?
+              if e.node.edi_blank? and e.node.usage.optional?
                 acc.warn(e, "optional element is not present")
               end
             end
@@ -384,7 +384,7 @@ module Stupidedi
         edit(:N3) do
           n3.element(2).tap do |e|
             if e.node.usage.optional?
-              unless n3.element(1).relect(&:blank?).defined?
+              unless n3.element(1).relect(&:edi_blank?).defined?
                 # Second address line (N302) shouldn't be present if the
                 # first (N301) isn't also present
                 acc.warn(e, "second address line present without first line")
@@ -397,19 +397,19 @@ module Stupidedi
       def critique_n4(n4, acc)
         edit(:N4) do
           usa_canada =
-            n4.element(2).select(&:present?).defined? ||
-            n4.element(4).select(&:blank?).defined?   ||
+            n4.element(2).select(&:edi_present?).defined? ||
+            n4.element(4).select(&:edi_blank?).defined?   ||
             n4.element(4).select{|e| e.node == "US" }.defined? ||
-            n4.element(7).select(&:blank?).defined?
+            n4.element(7).select(&:edi_blank?).defined?
 
           # State or Province Code
           n4.element(2).tap do |e|
             if usa_canada
-              if e.node.blank? and e.node.situational?
+              if e.node.edi_blank? and e.node.situational?
                 # Required
               end
             else
-              if e.node.present? and e.node.situational?
+              if e.node.edi_present? and e.node.situational?
                 # Forbidden
               end
             end
@@ -425,7 +425,7 @@ module Stupidedi
           # Country Code
           n4.element(4).tap do |e|
             if usa_canada
-              if e.node.present? and e.node.situational?
+              if e.node.edi_present? and e.node.situational?
                 # Forbidden
               end
             else
@@ -436,7 +436,7 @@ module Stupidedi
           # Country Subdivision Code
           n4.element(7).tap do |e|
             if usa_canada
-              if e.node.present? and e.node.situational?
+              if e.node.edi_present? and e.node.situational?
                 # Forbidden
               end
             else

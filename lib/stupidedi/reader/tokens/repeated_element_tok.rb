@@ -35,12 +35,12 @@ module Stupidedi
         true
       end
 
-      def blank?
-        @element_toks.all?(&:blank?)
+      def edi_blank?
+        @element_toks.all?(&:edi_blank?)
       end
 
-      def present?
-        not blank?
+      def edi_present?
+        not edi_blank?
       end
 
       def composite?

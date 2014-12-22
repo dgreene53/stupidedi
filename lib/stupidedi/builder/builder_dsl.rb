@@ -104,7 +104,7 @@ module Stupidedi
           if zipper.node.invalid?
             raise Exceptions::ParseError,
               "invalid element #{descriptor}"
-          elsif zipper.node.blank?
+          elsif zipper.node.edi_blank?
             if zipper.node.usage.required?
               raise Exceptions::ParseError,
                 "required element #{descriptor} is blank"
@@ -124,7 +124,7 @@ module Stupidedi
           end
 
         elsif zipper.node.composite?
-          if zipper.node.blank?
+          if zipper.node.edi_blank?
             if zipper.node.usage.required?
               raise Exceptions::ParseError,
                 "required element #{descriptor} is blank"
@@ -133,7 +133,7 @@ module Stupidedi
             raise Exceptions::ParseError,
               "forbidden element #{descriptor} is present"
           else
-            if zipper.node.present?
+            if zipper.node.edi_present?
               zipper.children.each_with_index do |z, i|
                 critique(z, "#{descriptor}-#{'%02d' % (i + 1)}")
               end

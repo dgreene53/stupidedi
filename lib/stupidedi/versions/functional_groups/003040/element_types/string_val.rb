@@ -109,7 +109,7 @@ module Stupidedi
                 :lines, :bytes, :chars, :each, :upto, :split, :scan, :unpack,
                 :=~, :match, :partition, :rpatition, :each, :split, :scan,
                 :unpack, :encoding, :count, :casecmp, :sum, :valid_enocding?,
-                :at, :empty?, :blank?      
+                :at, :empty?, :edi_blank?      
               
               # (string any* -> StringVal)
               extend Operators::Wrappers
@@ -199,7 +199,7 @@ module Stupidedi
                 :lines, :bytes, :chars, :each, :upto, :split, :scan, :unpack,
                 :=~, :match, :partition, :rpatition, :each, :split, :scan,
                 :unpack, :encoding, :count, :casecmp, :sum, :valid_enocding?,
-                :at, :empty?, :blank?
+                :at, :empty?, :edi_blank?
               
               
               # (string any* -> StringVal)
@@ -375,7 +375,7 @@ module Stupidedi
 
             # @return [StringVal]
             def value(object, usage, position)
-              if object.blank?
+              if object.edi_blank?
                 self::Empty.new(usage, position)
               elsif object.respond_to?(:to_s)
                 self::NonEmpty.new(object.to_s.rstrip, usage, position)

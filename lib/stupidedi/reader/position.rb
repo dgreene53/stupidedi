@@ -31,7 +31,7 @@ module Stupidedi
 
       # @return [String]
       def inspect
-        if @path.present?
+        if @path.edi_present?
           "file #{@path}, line #{@line}, column #{@column}"
         else
           "line #{@line}, column #{@column}"

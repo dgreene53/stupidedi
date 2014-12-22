@@ -7,19 +7,19 @@ class Stupidedi
         def critique_n4(n4, acc)
           edit(:N4) do
             usa_canada =
-              n4.element(2).select(&:present?).defined? ||
-              n4.element(4).select(&:blank?).defined?   ||
+              n4.element(2).select(&:edi_present?).defined? ||
+              n4.element(4).select(&:edi_blank?).defined?   ||
               n4.element(4).select{|e| e.node == "US" }.defined? ||
-              n4.element(7).select(&:blank?).defined?
+              n4.element(7).select(&:edi_blank?).defined?
 
             # State or Province Code
             n4.element(2).tap do |e|
               if usa_canada
-                if e.node.blank? and e.node.situational?
+                if e.node.edi_blank? and e.node.situational?
                   # Required
                 end
               else
-                if e.node.present? and e.node.situational?
+                if e.node.edi_present? and e.node.situational?
                   # Forbidden
                 end
               end
@@ -35,7 +35,7 @@ class Stupidedi
             # Country Code
             n4.element(4).tap do |e|
               if usa_canada
-                if e.node.present? and e.node.situational?
+                if e.node.edi_present? and e.node.situational?
                   # Forbidden
                 end
               else
@@ -46,7 +46,7 @@ class Stupidedi
             # Country Subdivision Code
           # n4.element(7).tap do |e|
           #   if usa_canada
-          #     if e.node.present? and e.node.situational?
+          #     if e.node.edi_present? and e.node.situational?
           #       # Forbidden
           #     end
           #   else

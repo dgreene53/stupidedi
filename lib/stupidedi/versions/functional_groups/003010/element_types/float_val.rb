@@ -237,7 +237,7 @@ module Stupidedi
 
               # @return [String]
               def to_s
-                if definition.max_precision.present?
+                if definition.max_precision.edi_present?
                   @value.round(definition.max_precision).to_s("F")
                 else
                   @value.to_s("F")
@@ -272,7 +272,7 @@ module Stupidedi
 
                 # Don't exceed the definition's max_precision
                 precision =
-                  if definition.max_precision.present?
+                  if definition.max_precision.edi_present?
                     (definition.max_precision < remaining) ?
                       definition.max_precision : remaining
                   else
@@ -325,7 +325,7 @@ module Stupidedi
 
             # @return [FloatVal]
             def value(object, usage, position)
-              if object.blank?
+              if object.edi_blank?
                 self::Empty.new(usage, position)
               elsif object.respond_to?(:to_d)
                 begin

@@ -75,7 +75,7 @@ module Stupidedi
             end
 
             def empty?
-              @value.blank?
+              @value.edi_blank?
             end
 
             def too_short?
