@@ -49,10 +49,6 @@ module Stupidedi
               common  = separators.characters & @zipper.node.characters
               message = common.to_a.map(&:inspect).join(", ")
 
-              if common.edi_present?
-                raise Exceptions::OutputError,
-                  "separator characters #{message} occur as data"
-              end
             end
           end
 
