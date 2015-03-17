@@ -138,13 +138,13 @@ module Stupidedi
         end
 
         # Interchange Receiver ID
-        edit(:ISA08) do
-          isa.element(8).tap do |e|
-            if e.node.edi_blank?
-              acc.ta105(e, "R", "008", "must be present")
-            end
-          end
-        end
+        # edit(:ISA08) do
+        #   isa.element(8).tap do |e|
+        #     if e.node.edi_blank?
+        #       acc.ta105(e, "R", "008", "must be present")
+        #     end
+        #   end
+        # end
 
         # Interchange Date
         edit(:ISA09) do
