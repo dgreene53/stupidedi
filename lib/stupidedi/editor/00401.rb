@@ -20,42 +20,42 @@ module Stupidedi
       end
 
       # @return [ResultSet]
-      def critique(isa, acc)
-        # 000: No error
+      # def critique(isa, acc)
+      #   # 000: No error
 
-        # 002: This Standard as Noted in the Control Standards Identifier is Not Supported
-        #   Check for InvalidEnvelope
+      #   # 002: This Standard as Noted in the Control Standards Identifier is Not Supported
+      #   #   Check for InvalidEnvelope
 
-        # 003: This Version of the Controls is Not Supported
-        #   Check for InvalidEnvelope
+      #   # 003: This Version of the Controls is Not Supported
+      #   #   Check for InvalidEnvelope
 
-        # 004: The Segment Terminator is Invalid
-        #   We couldn't have produced a parse tree, StreamReader#next_segment
-        #   would have returned an Either.failure<Result.failure>
+      #   # 004: The Segment Terminator is Invalid
+      #   #   We couldn't have produced a parse tree, StreamReader#next_segment
+      #   #   would have returned an Either.failure<Result.failure>
 
-        # 009: Unknown Interchange Receiver ID
-        #   This isn't for Stupidedi to decide
+      #   # 009: Unknown Interchange Receiver ID
+      #   #   This isn't for Stupidedi to decide
 
-        # 016: Invalid Interchange Standards Identifier Value
-        #   Check for InvalidEnvelope
+      #   # 016: Invalid Interchange Standards Identifier Value
+      #   #   Check for InvalidEnvelope
 
-        # 022: Invalid Control Characters
-        #   What does this mean? TokenReader ignores control characters anyway,
-        #   so there will be no evidence of this in the parse tree
+      #   # 022: Invalid Control Characters
+      #   #   What does this mean? TokenReader ignores control characters anyway,
+      #   #   so there will be no evidence of this in the parse tree
 
-        # 025: Duplicate Interchange Control Numbers
-        #   Need to critique the parent, TransmissionVal
+      #   # 025: Duplicate Interchange Control Numbers
+      #   #   Need to critique the parent, TransmissionVal
 
-        # 028: Invalid Date in Deferred Delivery Request
-        # 029: Invalid Time in Deferred Delivery Request
-        # 030: Invalid Delivery Time Code in Deferred Delivery Request
-        # 031: Invalid Grade of Service
-        #   It seems these elements should not be sent to a trading partner,
-        #   they are used internally to schedule a delivery. Not sure what to do
-        #   about validating them in a general way...
+      #   # 028: Invalid Date in Deferred Delivery Request
+      #   # 029: Invalid Time in Deferred Delivery Request
+      #   # 030: Invalid Delivery Time Code in Deferred Delivery Request
+      #   # 031: Invalid Grade of Service
+      #   #   It seems these elements should not be sent to a trading partner,
+      #   #   they are used internally to schedule a delivery. Not sure what to do
+      #   #   about validating them in a general way...
 
-        acc.tap { critique_isa(isa, received, acc) }
-      end
+      #   acc.tap { critique_isa(isa, received, acc) }
+      # end
 
     private
 
