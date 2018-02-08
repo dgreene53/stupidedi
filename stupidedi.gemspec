@@ -14,12 +14,12 @@ Gem::Specification.new do |s|
   s.author  = "Kyle Putnam"
   s.email   = "putnam.kyle@gmail.com"
 
-  s.files             = FileList["README.md", "Rakefile",
+  s.files             = Dir["README.md", "Rakefile",
                                  "bin/*",
                                  "lib/**/*",
                                  "doc/**/*.md",
                                  "spec/**/*"].to_a
-  s.test_files        = FileList["spec/examples/**/*.example"].to_a
+  s.test_files        = Dir["spec/examples/**/*.example"].to_a
   s.has_rdoc          = false
   s.bindir            = "bin"
   s.executables       = ["edi-pp", "edi-ed"]
