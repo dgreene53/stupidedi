@@ -1,5 +1,7 @@
-require File.dirname(__FILE__) + "/lib/stupidedi/version"
-require "rake"
+# coding: utf-8
+lib = File.expand_path("../lib", __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require "stupidedi/version"
 
 Gem::Specification.new do |s|
   s.name        = "stupidedi"
@@ -25,4 +27,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency "term-ansicolor", "~> 1.3"
   s.add_dependency "cantor", "~> 1.2"
+
+  s.add_development_dependency "rake", ">= 10.3"
 end
